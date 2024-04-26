@@ -6,5 +6,8 @@ import lv.venta.model.Product;
 
 public interface IProductRepo extends CrudRepository<Product,  Integer>{
 	
+	
+	
+	
 
 }

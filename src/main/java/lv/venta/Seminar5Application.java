@@ -1,5 +1,6 @@
 package lv.venta;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,9 +26,17 @@ public class Seminar5Application {
 				Product p1 = new Product("apple", "Red", 0.99f, 5);
 				Product p2 = new Product("Tomatoes", "Red", 1.50f, 10);
 				Product p3 = new Product("Watermelon", "Green", 2.99f, 5);
+				
 				productRepo.save(p1);
 				productRepo.save(p2);
 				productRepo.save(p3);
+				System.out.println("How Many: " + productRepo.count());
+				
+				System.out.println("All Products: " + productRepo.findAll());
+				
+				System.out.println("find Products: "  + productRepo.findById(2).get());
+				
+				
 				
 				
 				// TODO Auto-generated method stub
