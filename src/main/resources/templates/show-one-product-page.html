@@ -1,14 +1,27 @@
-hello-msg-page.html<hmtl xmlns:th="http://www.thymeleaf.org">
+<hmtl xmlns:th="http://www.thymeleaf.org">
 
 	<body>
 		
-		<p> This is an example for Product passing from JAVA to HTML </p>
-		<p  th:text="${mypackage.getId()}"></p>
-		<p  th:text="${mypackage.getTitle()}"></p>
-		<p  th:text="${mypackage.getDescription()}"></p>
-		<p  th:text="${mypackage.getPrice()}"></p>
-		<p  th:text="${mypackage.getQuantity()}"></p>
-		<p  th:text="${mypackage.toString()}"></p>
+		<p> Here is Products number:</p>
+		<table border = "1">
+				<tr>
+					<th>ID</th>
+					<th>Title</th>
+					<th>Description</th>
+					<th>Price</th>
+					<th>Quantity</th>
+				</tr>
+				<tr th:each = "temp: ${mypackage}">
+		
+					<td th:text="${temp.getId()}"></td>
+					<td  th:text="${temp.getTitle()}"></td>
+					<td  th:text="${temp.getDescription()}"></td>
+					<td  th:text="${temp.getPrice()}+' eur'"></td>
+					<td  th:text="${temp.getQuantity()}"></td>
+		
+					
+				</tr>
+			</table>
 		
 	</body>
 	
