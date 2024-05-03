@@ -8,7 +8,7 @@ public interface ProductCRUDService {
 	
 	//CRUD  create retrieve ipdate delete
 	
-	public abstract void create(String title, String description, float price, int quantity);
+	public abstract void create(String title, String description, float price, int quantity) throws Exception;
 	
 	// retrieve all
 	public abstract ArrayList<Product> retrieveAll() throws Exception;

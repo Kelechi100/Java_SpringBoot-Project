@@ -30,8 +30,24 @@ public class ProductServiceImpl implements ProductCRUDService, IProductFiltering
 	}
 
 	@Override
-	public void create(String title, String description, float price, int quantity) {
+	public void create(String title, String description, float price, int quantity) throws Exception{
+		if(title == null || description == null || price < 0 || quantity < 0)
+			throw new Exception("Problems with input parameters");
 		// TODO Auto-generated method stub
+		
+		Product  productFromDB = productRepo.findByTitleAndDescriptionAndPrice(title, description,price);
+		// product exists inDB
+		if(productFromDB != null) {
+			productFromDB.setQuantity(productFromDB.getQuantity() + quantity); // will change only in 
+			productRepo.save(productFromDB);
+			
+		}
+		else {
+			Product productNew = new Product(title, description, price, quantity);
+			productRepo.save(productNew);
+			
+		}
+		
 		
 	}
 
@@ -41,6 +57,8 @@ public class ProductServiceImpl implements ProductCRUDService, IProductFiltering
 		ArrayList<Product> result = (ArrayList<Product>) productRepo.findAll();
 		// TODO Auto-generated method stub
 		return result;
+		
+	
 	}
 
 	@Override
