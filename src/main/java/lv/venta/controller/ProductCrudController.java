@@ -24,7 +24,7 @@ public class ProductCrudController {
 		{
 			ArrayList<Product> result = productCRUDservice. retrieveAll();
 			model.addAttribute("mypackage", result);
-			return "show-all product-page"; // this will show show-all-product-page.html on the browser
+			return "show-all-product-page"; // this will show show-all-product-page.html on the browser
 		}
 		catch(Exception e) {
 			model.addAttribute("mypackage", e.getMessage());
