@@ -4,7 +4,7 @@
 		
 		<p> Please insert product data: </p>
 		
-		<form th:action="@{/product/crud/create}" th:object="${product}" method="post" >
+		<form th:action="@{/product/crud/update/__${id}__}" th:object="${product}" method="post" >
 			
 			<table>
 				<tr>
