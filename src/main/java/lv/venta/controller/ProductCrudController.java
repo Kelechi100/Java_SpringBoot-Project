@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.validation.Valid;
 import lv.venta.model.Product;
 import lv.venta.service.ProductCRUDService;
 
@@ -78,18 +80,27 @@ public class ProductCrudController {
 		return "create-product-page";// this will show create-produc-page.html with default product
 	}
 	@PostMapping("/create")
-	public String postproductCRUDCreate(Product product, Model model)
+	public String postproductCRUDCreate( @Valid Product product, BindingResult result, Model model)
+	
 	{
-		try {
-			productCRUDservice.create(product.getTitle(), product.getDescription(),
-					product.getPrice(), product.getQuantity());
-			return "redirect:/product/crud/all";//the endpoint localhost:8080/product/crud/all will be called
-			
-		} catch (Exception e) {
-			model.addAttribute("mypackage", e.getMessage());
-			return "error-page";//will show error-page.html page with exception message
+		if (result.hasErrors())
+		{
+			return "create-product-page";// this will show thesame html page
 		}
+		else
+		{
+			
 		
+			try {
+				productCRUDservice.create(product.getTitle(), product.getDescription(),
+						product.getPrice(), product.getQuantity());
+				return "redirect:/product/crud/all";//the endpoint localhost:8080/product/crud/all will be called
+				
+			} catch (Exception e) {
+				model.addAttribute("mypackage", e.getMessage());
+				return "error-page";//will show error-page.html page with exception message
+			}
+		}
 	}
 	//TODO create update get mapping function and 	 and TODO create update-product-page.html
 	@GetMapping("/update/{id}")// localhost:8080/product/crud/update/1

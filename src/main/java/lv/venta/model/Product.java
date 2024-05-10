@@ -32,14 +32,14 @@ public class Product {
 	private int id;
 	
 	@NotNull
-	@Pattern(regexp = "[A-Za-z ]+")
+	@Pattern(regexp = "[A-Za-z ]+", message = "Only letters are allowed")
 	@Size(min = 3, max = 20)
 	@Column(name  = "TITLE")
 	private String title;
 	
 	
 	@NotNull
-	@Pattern(regexp = "[A-Za-z,::;] +")
+	@Pattern(regexp = "[A-Za-z ]+", message = "Only letters are allowed ")
 	@Size(min =3, max = 20)
 	@Column(name = "DESCRIPTION")
 	private String description;
@@ -50,7 +50,7 @@ public class Product {
 	private float price;
 	
 	
-	@Min(-1)
+	@Min(0)
 	@Max(100000)
 	@Column(name = "QUANTITY")
 	private int quantity;
