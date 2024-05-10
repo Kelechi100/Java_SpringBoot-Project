@@ -16,6 +16,9 @@ import jakarta.validation.Valid;
 import lv.venta.model.Product;
 import lv.venta.service.ProductCRUDService;
 
+
+//TODO
+//Finish Service implementation: filterByQuantity 
 @Controller
 @RequestMapping("/product/crud")
 public class ProductCrudController {
@@ -51,7 +54,7 @@ public class ProductCrudController {
 			model.addAttribute("mypackage", e.getMessage());
 			return "error-page"; // this will show error-page.html page with exception message
 			
-			// TODO: handle exception
+			
 		}
 		
 	}
@@ -120,14 +123,22 @@ public class ProductCrudController {
 	}
 
 	@PostMapping("/update/{id}")
-	public String postProductCRUDUpdateById(@PathVariable("id") int id, Product product, Model model)
-	{	try {
-			productCRUDservice.updateById(id, product.getTitle(), product.getDescription(), product.getPrice(), product.getQuantity());
-			return "redirect:/product/crud/all/" + id;
-			
-		} catch (Exception e) {
-			model.addAttribute("mypackage", e.getMessage());
-			return "error-page";//will show error-page.html page with exception message
+	public String postProductCRUDUpdateById(@PathVariable("id") int id,@ Valid Product product,BindingResult result, Model model)
+	{	
+		if (result.hasErrors())
+		{
+			return "update-product-page";// this will show the same html page
+		}
+		else
+		{
+			try {
+				productCRUDservice.updateById(id, product.getTitle(), product.getDescription(), product.getPrice(), product.getQuantity());
+				return "redirect:/product/crud/all/" + id;
+				
+			} catch (Exception e) {
+				model.addAttribute("mypackage", e.getMessage());
+				return "error-page";//will show error-page.html page with exception message
+		}
 		}
 	}
 		

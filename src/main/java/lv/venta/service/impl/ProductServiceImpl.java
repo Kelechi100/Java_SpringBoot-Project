@@ -18,9 +18,14 @@ public class ProductServiceImpl implements ProductCRUDService, IProductFiltering
 	private IProductRepo productRepo;
 	
 	@Override
-	public ArrayList<Product> filterByQuantityThreshold(int threshold) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Product> filterByQuantityThreshold(int threshold)  throws Exception{
+		if(productRepo.count() == 0) throw new Exception("Product table is empty");
+		
+		ArrayList<Product>  result = productRepo.findByQuantityLessthan(threshold);
+		
+		if(result.isEmpty()) throw new Exception("there is no product which quantity is less than 0");
+		
+		return result;
 	}
 
 	@Override
